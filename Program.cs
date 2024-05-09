@@ -14,7 +14,13 @@ builder.Services.Configure<ConnectionMongo>
     (builder.Configuration.GetSection("connectionSettings"));
 
 
-builder.Services.AddScoped<PeopleService>();
+
+builder.Services.AddScoped<DeliveryPersonService>();
+builder.Services.AddScoped<BikeService>();
+builder.Services.AddScoped<RentedService>();
+builder.Services.AddScoped<InformationRentedMotorcycleService>();
+
+
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 

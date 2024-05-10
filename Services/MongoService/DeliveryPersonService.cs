@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace registerAPI.Services
 {
-    public class DeliveryPersonService
+    public class DeliveryPersonService 
     {
         private readonly IMongoCollection<DeliveryPersonRegister> _deliveryPersonCollection;
 

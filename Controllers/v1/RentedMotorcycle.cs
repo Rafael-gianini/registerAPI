@@ -26,7 +26,7 @@ namespace registerAPI.Controllers.v1
         public async Task<IActionResult> GetAll([FromQuery] GetAllDeliveryPeopleQuery query) =>
            Ok(await _mediator.Send(query));
 
-        [HttpGet("byLicense")]
+        [HttpGet("leaseByCNH")]
         public async Task<IActionResult> GetByLicense([FromQuery] GetAllDeliveryPeopleQuery query) =>
           Ok(await _mediator.Send(query));
 
@@ -34,14 +34,17 @@ namespace registerAPI.Controllers.v1
         public async Task<IActionResult> GetPlansRent([FromQuery] GetPlansForRentQuery query) =>
          Ok(await _mediator.Send(query));
 
+        [HttpPut("closeLease")]
+        public async Task<IActionResult> UdateLease([FromQuery] GetPlansForRentQuery query) =>
+        Ok(await _mediator.Send(query));
+
         [HttpDelete()]
         public async Task<IActionResult> Delete([FromQuery] DeleteLeaseCommand query) =>
             Ok(await _mediator.Send(query));
 
-
         [HttpPost()]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<IActionResult> Post(CreateLocationCommand command) =>
+        public async Task<IActionResult> Post(CreateRentalCommand command) =>
             Ok(await _mediator.Send(command));
     }
 }

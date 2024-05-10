@@ -5,22 +5,22 @@ using registerAPI.Services;
 
 namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
 {
-    public class CreateLocationCommandHandler : IRequestHandler<CreateLocationCommand>
+    public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand>
     {
         private readonly IMediator _mediator;
         private readonly RentedService _rentedService;
         private readonly BikeService _bikeService;
         private readonly DeliveryPersonService _deliveryPersonService;
         private readonly InformationRentedMotorcycleService _informationRentedMotorcycleService;
-        private readonly ILogger<CreateLocationCommandHandler> _logger;
+        private readonly ILogger<CreateRentalCommandHandler> _logger;
 
-        public CreateLocationCommandHandler(
+        public CreateRentalCommandHandler(
             RentedService rentedService, 
             IMediator mediator,
             BikeService bikeService,
             DeliveryPersonService deliveryPersonService,
             InformationRentedMotorcycleService informationRentedMotorcycleService,
-            ILogger<CreateLocationCommandHandler> logger)
+            ILogger<CreateRentalCommandHandler> logger)
         {
             _rentedService = rentedService;
             _mediator = mediator;
@@ -30,11 +30,11 @@ namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
             _logger = logger;
          }
 
-        public async Task<Unit> Handle(CreateLocationCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
         {
             try
             {
-
+                _logger.LogInformation("Start Create Lease");
 
                 var choosenPlan = request.RentendMotorcycle.ChooseYourPlan;
                 var motorcycleLicense = request.RentendMotorcycle.LicensePlate?.ToUpper();
@@ -79,20 +79,25 @@ namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
                     LicensePlate = motorcycleLicense,
                     TypePlan = value,
                     QuantityDays = quantityDays,
-                    ValuePlan = valuePlan.ToString("C")
+                    ValuePlan = valuePlan.ToString("C"),
+                    OpenRental = true,
+                    EstimatedDevolutionDate = request.RentendMotorcycle.EndPeriod,
+                    DateDevolution = null
                 };
 
                 await _informationRentedMotorcycleService.CreateAsync(information);
 
                 await _rentedService.CreateAsync(request.RentendMotorcycle);
 
+                _logger.LogInformation("Ended Create Lease");
+
                 return Unit.Value;
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Create Lease - Error {ex.Message}");
                 throw new Exception(ex.Message);
-            }
-           
+            }         
         }
 
         public async Task<double> CalculetedValuePlan(int quantityDays, string value)

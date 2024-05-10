@@ -3,11 +3,11 @@ using registerAPI.Services;
 
 namespace registerAPI.Commands.RentedMotorcycle.DeleteLease
 {
-    public class DeleteLeaseCommandHandler : IRequestHandler<DeleteLeaseCommand>
+    public class DeleteRentalCommandHandler : IRequestHandler<DeleteLeaseCommand>
     {
         private readonly RentedService _rentedService;
-        private readonly ILogger<DeleteLeaseCommandHandler> _logger;
-        public DeleteLeaseCommandHandler(RentedService rentedService, ILogger<DeleteLeaseCommandHandler> logger)
+        private readonly ILogger<DeleteRentalCommandHandler> _logger;
+        public DeleteRentalCommandHandler(RentedService rentedService, ILogger<DeleteRentalCommandHandler> logger)
         {
             _rentedService = rentedService;
             _logger = logger;

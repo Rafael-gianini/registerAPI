@@ -4,7 +4,7 @@ using registerAPI.Entity;
 
 namespace registerAPI.Services
 {
-    public class InformationRentedMotorcycleService
+    public class InformationRentedMotorcycleService 
     {
         private readonly IMongoCollection<InformationRentedMotorcycle> _informationRentedMotorcycleCollection;
 

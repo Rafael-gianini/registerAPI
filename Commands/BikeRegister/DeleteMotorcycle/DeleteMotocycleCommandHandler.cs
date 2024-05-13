@@ -1,14 +1,15 @@
 ﻿using MediatR;
 using registerAPI.Services;
+using registerAPI.Services.Interfaces;
 using System;
 
 namespace registerAPI.Commands.City.DeleteMotorcycle
 {
     public class DeleteMotocycleCommandHandler : IRequestHandler<DeleteMotocycleCommand>
     {
-        private readonly BikeService _cityService;
+        private readonly IBikeService _cityService;
         private readonly ILogger<DeleteMotocycleCommandHandler> _logger;
-        public DeleteMotocycleCommandHandler(BikeService cityService, ILogger<DeleteMotocycleCommandHandler> logger)
+        public DeleteMotocycleCommandHandler(IBikeService cityService, ILogger<DeleteMotocycleCommandHandler> logger)
         {
             _cityService = cityService;
             _logger = logger;

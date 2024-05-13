@@ -2,24 +2,25 @@
 using registerAPI.Entity;
 using registerAPI.Query.GetForRent;
 using registerAPI.Services;
+using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
 {
     public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand>
     {
         private readonly IMediator _mediator;
-        private readonly RentedService _rentedService;
-        private readonly BikeService _bikeService;
-        private readonly DeliveryPersonService _deliveryPersonService;
-        private readonly InformationRentedMotorcycleService _informationRentedMotorcycleService;
+        private readonly IRentedService _rentedService;
+        private readonly IBikeService _bikeService;
+        private readonly IDeliveryPersonService _deliveryPersonService;
+        private readonly IInformationRentedMotorcycleService _informationRentedMotorcycleService;
         private readonly ILogger<CreateRentalCommandHandler> _logger;
 
         public CreateRentalCommandHandler(
-            RentedService rentedService, 
+            IRentedService rentedService, 
             IMediator mediator,
-            BikeService bikeService,
-            DeliveryPersonService deliveryPersonService,
-            InformationRentedMotorcycleService informationRentedMotorcycleService,
+            IBikeService bikeService,
+            IDeliveryPersonService deliveryPersonService,
+            IInformationRentedMotorcycleService informationRentedMotorcycleService,
             ILogger<CreateRentalCommandHandler> logger)
         {
             _rentedService = rentedService;

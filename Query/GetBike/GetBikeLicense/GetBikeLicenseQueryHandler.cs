@@ -1,14 +1,15 @@
 ﻿using MediatR;
 using registerAPI.Entity;
 using registerAPI.Services;
+using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Query.GetBike.GetBikeLicense
 {
     public class GetBikeLicenseQueryHandler : IRequestHandler<GetBikeLicenseQuery, BikeRegister>
     {
-        private readonly BikeService _bikeService;
+        private readonly IBikeService _bikeService;
         private readonly ILogger<GetBikeLicenseQueryHandler> _logger;
-        public GetBikeLicenseQueryHandler(BikeService bikeService, ILogger<GetBikeLicenseQueryHandler> logger)
+        public GetBikeLicenseQueryHandler(IBikeService bikeService, ILogger<GetBikeLicenseQueryHandler> logger)
         {
             _bikeService = bikeService;
             _logger = logger;

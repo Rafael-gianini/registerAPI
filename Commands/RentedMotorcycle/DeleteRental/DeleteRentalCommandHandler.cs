@@ -1,13 +1,14 @@
 ﻿using MediatR;
 using registerAPI.Services;
+using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Commands.RentedMotorcycle.DeleteLease
 {
     public class DeleteRentalCommandHandler : IRequestHandler<DeleteLeaseCommand>
     {
-        private readonly RentedService _rentedService;
+        private readonly IRentedService _rentedService;
         private readonly ILogger<DeleteRentalCommandHandler> _logger;
-        public DeleteRentalCommandHandler(RentedService rentedService, ILogger<DeleteRentalCommandHandler> logger)
+        public DeleteRentalCommandHandler(IRentedService rentedService, ILogger<DeleteRentalCommandHandler> logger)
         {
             _rentedService = rentedService;
             _logger = logger;

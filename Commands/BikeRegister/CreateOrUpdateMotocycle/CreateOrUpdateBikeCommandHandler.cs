@@ -1,13 +1,14 @@
 ﻿using MediatR;
 using registerAPI.Entity;
 using registerAPI.Services;
+using registerAPI.Services.Interfaces;
 namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
 {
     public class CreateOrUpdateBikeCommandHandler : IRequestHandler<CreateOrUpdateBikeCommand>
     {
-        private readonly BikeService _bikeService;
+        private readonly IBikeService _bikeService;
         private readonly ILogger<CreateOrUpdateBikeCommandHandler> _logger;
-        public CreateOrUpdateBikeCommandHandler(BikeService bikeService, ILogger<CreateOrUpdateBikeCommandHandler> logger)
+        public CreateOrUpdateBikeCommandHandler(IBikeService bikeService, ILogger<CreateOrUpdateBikeCommandHandler> logger)
         {
             _bikeService = bikeService;
             _logger = logger;

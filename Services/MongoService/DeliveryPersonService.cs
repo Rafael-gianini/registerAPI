@@ -2,12 +2,13 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using registerAPI.Entity;
+using registerAPI.Services.Interfaces;
 using System.Security.Cryptography;
 
 
 namespace registerAPI.Services
 {
-    public class DeliveryPersonService 
+    public class DeliveryPersonService : IDeliveryPersonService
     {
         private readonly IMongoCollection<DeliveryPersonRegister> _deliveryPersonCollection;
 

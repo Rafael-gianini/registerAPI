@@ -1,14 +1,15 @@
 ﻿using MediatR;
 using registerAPI.Commands.RentedMotorcycle.UpdateLease;
 using registerAPI.Services;
+using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Commands.RentedMotorcycle.UpdateRental
 {
     public class UpdateRentalCommandHandler : IRequestHandler<UpdateRentalCommand>
     {
-        private readonly InformationRentedMotorcycleService _informationRentedMotorcycleService;
+        private readonly IInformationRentedMotorcycleService _informationRentedMotorcycleService;
         private readonly ILogger<InformationRentedMotorcycleService> _logger;
-        public UpdateRentalCommandHandler(InformationRentedMotorcycleService informationRentedMotorcycleService, ILogger<InformationRentedMotorcycleService> logger)
+        public UpdateRentalCommandHandler(IInformationRentedMotorcycleService informationRentedMotorcycleService, ILogger<InformationRentedMotorcycleService> logger)
         {
             _informationRentedMotorcycleService = informationRentedMotorcycleService;
             _logger = logger;

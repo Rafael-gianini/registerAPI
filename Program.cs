@@ -1,7 +1,10 @@
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using registerAPI;
 using registerAPI.Entity;
 using registerAPI.Services;
@@ -13,15 +16,14 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<ConnectionMongo>
-    (builder.Configuration.GetSection("connectionSettings"));
+builder.Services.Configure<ConnectionMongo>(builder.Configuration.GetSection("connectionSettings"));
 
+builder.Services.AddSingleton<IConnectionsMongo>(sp => sp.GetRequiredService<IOptions<ConnectionMongo>>().Value);
 
-
-builder.Services.AddScoped<BikeService>();
-builder.Services.AddScoped<DeliveryPersonService>();
-builder.Services.AddScoped<RentedService>();
-builder.Services.AddScoped<InformationRentedMotorcycleService>();
+builder.Services.AddSingleton<IBikeService, BikeService>();
+builder.Services.AddSingleton<IDeliveryPersonService, DeliveryPersonService>();
+builder.Services.AddSingleton<IRentedService, RentedService>();
+builder.Services.AddSingleton<IInformationRentedMotorcycleService, InformationRentedMotorcycleService>();
 
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
@@ -73,11 +75,8 @@ builder.Services.AddSwaggerGen(x =>
 
             },
             new List<string>()
-        }
-            
-      
-    });
-    
+        }                  
+    });    
 });
 //builder.Services.AddInfrastructureSwagger();
 

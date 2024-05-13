@@ -2,15 +2,16 @@
 
 using MediatR;
 using registerAPI.Services;
+using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Commands.Person.DeletePerson
 {
     public class DeleteDeliveryPersonCommandHandler : IRequestHandler<DeleteDeliveryPersonCommand>
     {
-        private readonly DeliveryPersonService _peopleService;
+        private readonly IDeliveryPersonService _peopleService;
         private readonly ILogger<DeleteDeliveryPersonCommandHandler> _logger; 
 
-        public DeleteDeliveryPersonCommandHandler(DeliveryPersonService peopleService, ILogger<DeleteDeliveryPersonCommandHandler> logger)
+        public DeleteDeliveryPersonCommandHandler(IDeliveryPersonService peopleService, ILogger<DeleteDeliveryPersonCommandHandler> logger)
         {
             _peopleService = peopleService;
             _logger = logger;

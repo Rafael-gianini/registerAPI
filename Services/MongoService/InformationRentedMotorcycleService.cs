@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using registerAPI.Entity;
+using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Services
 {
-    public class InformationRentedMotorcycleService 
+    public class InformationRentedMotorcycleService : IInformationRentedMotorcycleService
     {
         private readonly IMongoCollection<InformationRentedMotorcycle> _informationRentedMotorcycleCollection;
 

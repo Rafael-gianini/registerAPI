@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using registerAPI.Entity;
 using registerAPI.Services;
+using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Query.GetDelivery.GetAllDeliveryPeople
 {
     public class GetAllDeliveryPeopleQueryHandler : IRequestHandler<GetAllDeliveryPeopleQuery, IEnumerable<DeliveryPersonRegister>>
     {
-        private readonly DeliveryPersonService _deliveryPersonService;
+        private readonly IDeliveryPersonService _deliveryPersonService;
         private readonly ILogger<GetAllDeliveryPeopleQueryHandler> _logger;
-        public GetAllDeliveryPeopleQueryHandler(DeliveryPersonService deliveryPersonService, ILogger<GetAllDeliveryPeopleQueryHandler> logger)
+        public GetAllDeliveryPeopleQueryHandler(IDeliveryPersonService deliveryPersonService, ILogger<GetAllDeliveryPeopleQueryHandler> logger)
         {
             _deliveryPersonService = deliveryPersonService;
             _logger = logger;

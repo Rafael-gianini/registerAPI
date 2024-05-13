@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using registerAPI.Entity;
 using registerAPI.Services;
+using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Commands.Person.CreateOrUpdatePerson
 {
     public class CreateOrUpdateDeliveryPersonCommandHandler : IRequestHandler<CreateOrUpdateDeliveryPersonCommand>
     {
-        private readonly DeliveryPersonService _deliveryPersonService;
+        private readonly IDeliveryPersonService _deliveryPersonService;
         private readonly ILogger<CreateOrUpdateDeliveryPersonCommandHandler> _logger;
-        public CreateOrUpdateDeliveryPersonCommandHandler(DeliveryPersonService deliveryPersonService, ILogger<CreateOrUpdateDeliveryPersonCommandHandler> logger)
+        public CreateOrUpdateDeliveryPersonCommandHandler(IDeliveryPersonService deliveryPersonService, ILogger<CreateOrUpdateDeliveryPersonCommandHandler> logger)
         {
             _deliveryPersonService = deliveryPersonService;
             _logger = logger;

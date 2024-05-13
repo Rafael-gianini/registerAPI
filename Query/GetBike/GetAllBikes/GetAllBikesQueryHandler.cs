@@ -4,12 +4,13 @@ using registerAPI.Services;
 namespace registerAPI.Query.GetBike.GetAllBikes
 {
     using registerAPI.Entity;
+    using registerAPI.Services.Interfaces;
 
     public class GetAllBikesQueryHandler : IRequestHandler<GetAllBikesQuery, IEnumerable<BikeRegister>>
     {
-        private readonly BikeService _bikeService;
+        private readonly IBikeService _bikeService;
         private readonly ILogger<GetAllBikesQueryHandler> _logger;
-        public GetAllBikesQueryHandler(BikeService bikeService, ILogger<GetAllBikesQueryHandler> logger)
+        public GetAllBikesQueryHandler(IBikeService bikeService, ILogger<GetAllBikesQueryHandler> logger)
         {
             _bikeService = bikeService;
             _logger = logger;

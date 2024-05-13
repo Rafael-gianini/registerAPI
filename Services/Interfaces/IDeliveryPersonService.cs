@@ -2,12 +2,13 @@
 
 namespace registerAPI.Services.Interfaces
 {
-    public interface IBikeService
+    public interface IDeliveryPersonService
     {
-        public Task<List<BikeRegister>> GetAsync();
-        public Task<BikeRegister> GetByLicense(string? bikeLicense);
-        public Task CreateAsync(BikeRegister bike);
-        public Task UpdateAsync(string bikeLicense, BikeRegister bike);
-        public Task RemoveAsync(string bikeLicense);
+        public Task<List<DeliveryPersonRegister>> GetAsyncByPage(int page, int pageSize);
+        public Task<List<DeliveryPersonRegister>> GetAllAsync();
+        public Task<DeliveryPersonRegister> GetByCnh(double cnh);
+        public Task CreateAsync(DeliveryPersonRegister people);
+        public Task UpdateAsync(int cnh, DeliveryPersonRegister people);
+        public Task RemoveAsync(int cnh);
     }
 }

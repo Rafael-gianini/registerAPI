@@ -7,7 +7,7 @@ namespace registerAPI.Services
 {
     public class BikeService : IBikeService
     {
-
+        //private readonly IOptions<ConnectionMongo> _bikeService;
         private readonly IMongoCollection<BikeRegister> _bikeCollection;
 
         public BikeService(IOptions<ConnectionMongo> bikeService)
@@ -16,6 +16,7 @@ namespace registerAPI.Services
             var mongoDatabase = mongoClient.GetDatabase(bikeService.Value.DatabaseName);
 
             _bikeCollection = mongoDatabase.GetCollection<BikeRegister>(bikeService.Value.BikeRegisterCollectionName);
+            
         }
 
         public async Task<List<BikeRegister>> GetAsync() =>

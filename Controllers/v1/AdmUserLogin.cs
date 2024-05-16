@@ -5,7 +5,7 @@ namespace registerAPI.Controllers.v1
 {
     [ApiController]
     [Route("api/v1/authLogin")]
-    public class UserAdmLogin : Controller
+    public class AdmUserLogin : Controller
     {
         [HttpPost]
         public IActionResult Auth(string username, string password)

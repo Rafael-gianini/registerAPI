@@ -9,7 +9,7 @@ using System.Net;
 
 namespace registerAPI.Controllers.v1
 {
-    
+    [Authorize]
     [ApiController]
     [Route("api/v1/motorcycleRegister")]
     public class MotorcycleRegisterController : ControllerBase
@@ -25,18 +25,16 @@ namespace registerAPI.Controllers.v1
 
         [HttpGet("all")]
         public async Task<IActionResult> Get([FromQuery] GetAllBikesQuery query) =>
-          Ok(await _mediatR.Send(query));
+           Ok(await _mediatR.Send(query));
 
         [HttpGet("byLicense")]
         public async Task<IActionResult> GetByLicense([FromQuery] GetBikeLicenseQuery query) =>
-         Ok(await _mediatR.Send(query));
-
-        [Authorize]
+           Ok(await _mediatR.Send(query));
+      
         [HttpDelete()]
         public async Task<IActionResult> Delete(DeleteMotocycleCommand command) =>
             Ok(await _mediatR.Send(command));
 
-        [Authorize]
         [HttpPost()]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         public async Task<IActionResult> Post(CreateOrUpdateBikeCommand command) =>

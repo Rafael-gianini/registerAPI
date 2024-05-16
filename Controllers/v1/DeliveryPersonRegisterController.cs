@@ -26,7 +26,7 @@ namespace registerAPI.Controllers.v1
 
         [HttpGet()]
         public async Task<IActionResult> Get([FromQuery] GetAllDeliveryPeopleQuery query) =>
-           Ok(await _mediator.Send(query));
+            Ok(await _mediator.Send(query));
 
         [HttpDelete()]
         public async Task<IActionResult> Delete([FromQuery] GetAllDeliveryPeopleQuery query) =>

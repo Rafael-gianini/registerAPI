@@ -18,5 +18,6 @@ namespace registerAPI.Commands.RentedMotorcycle.UpdateLease
         public int CNH { get; set; }
         public string? LicensePlate { get; set; }
         public DateOnly? DateDevolution { get; set; }
+        
     }
 }

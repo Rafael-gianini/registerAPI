@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registerAPI
+spec:
+  selector:
+    matchLabels:
+      app: registerAPI
+      tier: persistence
+      version: v1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: registerAPI
+        tier: persistence
+        version: v1
+    spec:
+      containers:
+        - name: resgisterAPI
+          image: acrdevopsbr.azurecr.io/redis:alpine
+          resources:
+            requests:
+              cpu: 25m
+              memory: 150Mi
+            limits:
+              cpu: 300m
+              memory: 500Mi
+          ports:
+            - containerPort: 80

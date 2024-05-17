@@ -2,7 +2,7 @@
 
 namespace registerAPI.Entity
 {
-    public class BikeRegister
+    public class MotorcycleRegister
     {
 
         [BsonElement("id")]
@@ -15,5 +15,10 @@ namespace registerAPI.Entity
         public string? ModelBike { get; set; }
     }
 
-
+    public class UpdateMotorcycle
+    {
+        public string? WrongBikeLicensePlate { get; set; }
+        public string? UpdategBikeLicensePlate { get; set; }
+        
+    }
 }

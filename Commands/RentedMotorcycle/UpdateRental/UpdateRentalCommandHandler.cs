@@ -48,7 +48,7 @@ namespace registerAPI.Commands.RentedMotorcycle.UpdateRental
             
         }
 
-        public async Task<double> CalculetedTrafficTicket(DateOnly? dateDevolution, DateOnly estimatedDevolutionDate, string typePlan)
+        public async Task<double> CalculetedTrafficTicket(DateOnly? dateDevolution, DateOnly estimatedDevolutionDate, string? typePlan)
         {
             var trafficTicket = 0;
             double days = dateDevolution.HasValue ? dateDevolution.Value.Day - estimatedDevolutionDate.Day : 0;

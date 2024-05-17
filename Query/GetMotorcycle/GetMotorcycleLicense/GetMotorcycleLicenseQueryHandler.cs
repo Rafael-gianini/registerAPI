@@ -5,18 +5,18 @@ using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Query.GetBike.GetBikeLicense
 {
-    public class GetBikeLicenseQueryHandler : IRequestHandler<GetBikeLicenseQuery, BikeRegister>
+    public class GetMotorcycleLicenseQueryHandler : IRequestHandler<GetMotorcycleLicenseQuery, MotorcycleRegister>
     {
-        private readonly IBikeService _bikeService;
-        private readonly ILogger<GetBikeLicenseQueryHandler> _logger;
-        public GetBikeLicenseQueryHandler(IBikeService bikeService, ILogger<GetBikeLicenseQueryHandler> logger)
+        private readonly IMotorcycleService _bikeService;
+        private readonly ILogger<GetMotorcycleLicenseQueryHandler> _logger;
+        public GetMotorcycleLicenseQueryHandler(IMotorcycleService bikeService, ILogger<GetMotorcycleLicenseQueryHandler> logger)
         {
             _bikeService = bikeService;
             _logger = logger;
 
         }
 
-        public async Task<BikeRegister> Handle(GetBikeLicenseQuery request, CancellationToken cancellationToken)
+        public async Task<MotorcycleRegister> Handle(GetMotorcycleLicenseQuery request, CancellationToken cancellationToken)
         {
             try
             {

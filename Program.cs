@@ -20,7 +20,7 @@ builder.Services.Configure<ConnectionMongo>(builder.Configuration.GetSection("co
 
 builder.Services.AddSingleton<IConnectionsMongo>(sp => sp.GetRequiredService<IOptions<ConnectionMongo>>().Value);
 
-builder.Services.AddSingleton<IBikeService, BikeService>();
+builder.Services.AddSingleton<IMotorcycleService, MotorcycleService>();
 builder.Services.AddSingleton<IDeliveryPersonService, DeliveryPersonService>();
 builder.Services.AddSingleton<IRentedService, RentedService>();
 builder.Services.AddSingleton<IInformationRentedMotorcycleService, InformationRentedMotorcycleService>();

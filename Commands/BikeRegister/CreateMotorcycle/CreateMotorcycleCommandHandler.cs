@@ -11,17 +11,17 @@ using Newtonsoft.Json;
 
 namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
 {
-    public class CreateOrUpdateBikeCommandHandler : IRequestHandler<CreateOrUpdateBikeCommand>
+    public class CreateMotorcycleCommandHandler : IRequestHandler<CreateMotorcycleCommand>
     {
-        private readonly IBikeService _bikeService;
-        private readonly ILogger<CreateOrUpdateBikeCommandHandler> _logger;
-        public CreateOrUpdateBikeCommandHandler(IBikeService bikeService, ILogger<CreateOrUpdateBikeCommandHandler> logger)
+        private readonly IMotorcycleService _bikeService;
+        private readonly ILogger<CreateMotorcycleCommandHandler> _logger;
+        public CreateMotorcycleCommandHandler(IMotorcycleService bikeService, ILogger<CreateMotorcycleCommandHandler> logger)
         {
             _bikeService = bikeService;
             _logger = logger;
         }
 
-        public async Task<Unit> Handle(CreateOrUpdateBikeCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateMotorcycleCommand request, CancellationToken cancellationToken)
         {
             try
             {

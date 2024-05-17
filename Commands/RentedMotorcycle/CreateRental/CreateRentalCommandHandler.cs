@@ -10,7 +10,7 @@ namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
     {
         private readonly IMediator _mediator;
         private readonly IRentedService _rentedService;
-        private readonly IBikeService _bikeService;
+        private readonly IMotorcycleService _bikeService;
         private readonly IDeliveryPersonService _deliveryPersonService;
         private readonly IInformationRentedMotorcycleService _informationRentedMotorcycleService;
         private readonly ILogger<CreateRentalCommandHandler> _logger;
@@ -18,7 +18,7 @@ namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
         public CreateRentalCommandHandler(
             IRentedService rentedService, 
             IMediator mediator,
-            IBikeService bikeService,
+            IMotorcycleService bikeService,
             IDeliveryPersonService deliveryPersonService,
             IInformationRentedMotorcycleService informationRentedMotorcycleService,
             ILogger<CreateRentalCommandHandler> logger)

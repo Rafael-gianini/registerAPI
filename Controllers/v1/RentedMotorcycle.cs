@@ -29,14 +29,10 @@ namespace registerAPI.Controllers.v1
 
         [HttpGet("rentByCNH")]
         public async Task<IActionResult> GetByLicense([FromQuery] GetAllDeliveryPeopleQuery query) =>
-            Ok(await _mediator.Send(query));
-
-        [HttpGet("plansRent")]
-        public async Task<IActionResult> GetPlansRent([FromQuery] GetPlansForRentQuery query) =>
-            Ok(await _mediator.Send(query));
+            Ok(await _mediator.Send(query));       
 
         [HttpPut("closeRent")]
-        public async Task<IActionResult> UdateRent(UpdateRentalCommand command) =>
+        public async Task<IActionResult> UpdateRent(UpdateRentalCommand command) =>
             Ok(await _mediator.Send(command));
 
         [HttpDelete()]

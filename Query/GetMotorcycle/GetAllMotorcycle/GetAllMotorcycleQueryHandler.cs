@@ -6,18 +6,18 @@ namespace registerAPI.Query.GetBike.GetAllBikes
     using registerAPI.Entity;
     using registerAPI.Services.Interfaces;
 
-    public class GetAllBikesQueryHandler : IRequestHandler<GetAllBikesQuery, IEnumerable<BikeRegister>>
+    public class GetAllMotorcycleQueryHandler : IRequestHandler<GetAllMotorcycleQuery, IEnumerable<MotorcycleRegister>>
     {
-        private readonly IBikeService _bikeService;
-        private readonly ILogger<GetAllBikesQueryHandler> _logger;
-        public GetAllBikesQueryHandler(IBikeService bikeService, ILogger<GetAllBikesQueryHandler> logger)
+        private readonly IMotorcycleService _bikeService;
+        private readonly ILogger<GetAllMotorcycleQueryHandler> _logger;
+        public GetAllMotorcycleQueryHandler(IMotorcycleService bikeService, ILogger<GetAllMotorcycleQueryHandler> logger)
         {
             _bikeService = bikeService;
             _logger = logger;
 
         }
 
-        public async Task<IEnumerable<BikeRegister>> Handle(GetAllBikesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<MotorcycleRegister>> Handle(GetAllMotorcycleQuery request, CancellationToken cancellationToken)
         {
 
             try

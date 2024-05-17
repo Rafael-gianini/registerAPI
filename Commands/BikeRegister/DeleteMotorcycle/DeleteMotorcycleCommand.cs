@@ -5,8 +5,8 @@ using registerAPI.Services;
 namespace registerAPI.Commands.City.DeleteMotorcycle
 {
   
-    public class DeleteMotocycleCommand : IRequest    
+    public class DeleteMotorcycleCommand : IRequest    
     {
-        public string AliasKey { get; set; }
+        public string MotorcycleLicense { get; set; }
     }
 }

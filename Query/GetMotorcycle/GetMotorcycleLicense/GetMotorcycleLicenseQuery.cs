@@ -3,7 +3,7 @@ using registerAPI.Entity;
 
 namespace registerAPI.Query.GetBike.GetBikeLicense
 {
-    public class GetBikeLicenseQuery : IRequest<BikeRegister>
+    public class GetMotorcycleLicenseQuery : IRequest<MotorcycleRegister>
     {
         public string? LicensePlate { get; set; }
     }

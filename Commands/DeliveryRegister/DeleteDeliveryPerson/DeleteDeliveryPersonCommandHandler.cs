@@ -6,7 +6,7 @@ using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Commands.Person.DeletePerson
 {
-    public class DeleteDeliveryPersonCommandHandler : IRequestHandler<DeleteDeliveryPersonCommand>
+    public class DeleteDeliveryPersonCommandHandler : IRequestHandler<DeleteDeliveryPersonCommand, string>
     {
         private readonly IDeliveryPersonService _peopleService;
         private readonly ILogger<DeleteDeliveryPersonCommandHandler> _logger; 
@@ -16,7 +16,7 @@ namespace registerAPI.Commands.Person.DeletePerson
             _peopleService = peopleService;
             _logger = logger;
         }
-        public async Task<Unit> Handle(DeleteDeliveryPersonCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(DeleteDeliveryPersonCommand request, CancellationToken cancellationToken)
         {
 
             try
@@ -27,12 +27,16 @@ namespace registerAPI.Commands.Person.DeletePerson
 
                 _logger.LogInformation("Ended Delete Delivery Person");
 
-                return Unit.Value;
+                return "Deletado com sucesso!";
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Delete Delivery Person - Error {ex.Message}");
-                throw new Exception(ex.Message);
+
+                if (ex is ArgumentException)
+                    throw new ArgumentException(ex.Message);
+
+                throw new Exception("Erro ao deletar!");
             }           
         }
     }

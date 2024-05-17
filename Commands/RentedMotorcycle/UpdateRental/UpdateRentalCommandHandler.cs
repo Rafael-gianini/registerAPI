@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using registerAPI.Commands.RentedMotorcycle.UpdateLease;
+using registerAPI.Commands.RentedMotorcycle.UpdateRental;
 using registerAPI.Services;
 using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Commands.RentedMotorcycle.UpdateRental
 {
-    public class UpdateRentalCommandHandler : IRequestHandler<UpdateRentalCommand>
+    public class UpdateRentalCommandHandler : IRequestHandler<UpdateRentalCommand, string>
     {
         private readonly IInformationRentedMotorcycleService _informationRentedMotorcycleService;
         private readonly ILogger<InformationRentedMotorcycleService> _logger;
@@ -16,7 +16,7 @@ namespace registerAPI.Commands.RentedMotorcycle.UpdateRental
 
         }
 
-        public async Task<Unit> Handle(UpdateRentalCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(UpdateRentalCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -33,19 +33,24 @@ namespace registerAPI.Commands.RentedMotorcycle.UpdateRental
 
                 rental.DateDevolution = request.CloseRental.DateDevolution;
                 rental.OpenRental = false;
+                rental.ValueTrafficTicket = trafficTicket;
 
                 await _informationRentedMotorcycleService.UpdateAsync(licensePlate, rental);
 
                 _logger.LogInformation("Ended Update Rental");
 
-                return Unit.Value;
+                return "Atualizado com sucesso";
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Update Rental - Error {ex.Message}");
-                throw new Exception(ex.Message);
-            }
-            
+
+                if (ex is ArgumentException)
+                    throw new ArgumentException(ex.Message);
+
+                throw new Exception("Erro ao autualzar!");
+
+            }           
         }
 
         public async Task<double> CalculetedTrafficTicket(DateOnly? dateDevolution, DateOnly estimatedDevolutionDate, string? typePlan)

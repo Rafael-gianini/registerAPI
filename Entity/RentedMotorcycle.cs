@@ -8,7 +8,7 @@ namespace registerAPI.Entity
     public class RentedMotorcycle
     {
         [BsonElement("id")]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         [BsonElement("cnh")]
         public int CNH { get; set; }
         [BsonElement("licensePlate")]

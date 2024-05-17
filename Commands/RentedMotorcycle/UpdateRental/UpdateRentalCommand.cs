@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace registerAPI.Commands.RentedMotorcycle.UpdateLease
+namespace registerAPI.Commands.RentedMotorcycle.UpdateRental
 {
-    public class UpdateRentalCommand : IRequest
+    public class UpdateRentalCommand : IRequest<string>
     {
         public UpdateRentalCommand(CloseRental closeRental)
         {

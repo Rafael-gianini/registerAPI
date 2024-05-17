@@ -4,9 +4,9 @@ using registerAPI.Query.GetForRent;
 using registerAPI.Services;
 using registerAPI.Services.Interfaces;
 
-namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
+namespace registerAPI.Commands.RentedMotorcycle.CreateRental
 {
-    public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand>
+    public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand, string>
     {
         private readonly IMediator _mediator;
         private readonly IRentedService _rentedService;
@@ -31,11 +31,11 @@ namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
             _logger = logger;
          }
 
-        public async Task<Unit> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                _logger.LogInformation("Start Create Lease");
+                _logger.LogInformation("Start Create Rental");
 
                 var choosenPlan = request.RentendMotorcycle.ChooseYourPlan;
                 var motorcycleLicense = request.RentendMotorcycle.LicensePlate?.ToUpper();
@@ -45,9 +45,9 @@ namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
 
                 var value = listPlan.Where(x => x.Key == choosenPlan).FirstOrDefault().Value;
 
-                var confirmMotocycleRegister = await _bikeService.GetByLicense(motorcycleLicense);
+                var confirmMotorcycleRegister = await _bikeService.GetByLicense(motorcycleLicense);
 
-                if (confirmMotocycleRegister is null)
+                if (confirmMotorcycleRegister is null)
                     throw new ArgumentException("Placa não encontrada nos registros! Verifique se digitou corretamente!");
 
                 var confirmCNHRegister = await _deliveryPersonService.GetByCnh(request.RentendMotorcycle.CNH);
@@ -90,14 +90,18 @@ namespace registerAPI.Commands.RentedMotorcycle.CreateLocation
 
                 await _rentedService.CreateAsync(request.RentendMotorcycle);
 
-                _logger.LogInformation("Ended Create Lease");
+                _logger.LogInformation("Ended Create Rental");
 
-                return Unit.Value;
+                return "Aluguel cadastrado com sucesso!";
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Create Lease - Error {ex.Message}");
-                throw new Exception(ex.Message);
+                _logger.LogError($"Create Rental - Error {ex.Message}");
+
+                if (ex is ArgumentException)
+                    throw new ArgumentException(ex.Message);
+
+                throw new Exception("Um erro aconteceu! Tente novamente.");
             }         
         }
 

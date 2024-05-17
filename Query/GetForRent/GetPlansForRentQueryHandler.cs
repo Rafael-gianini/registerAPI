@@ -25,15 +25,15 @@ namespace registerAPI.Query.GetForRent
             catch (Exception ex)
             {
                 _logger.LogError($"Get Plans For Rent - Error {ex.Message}");
-                throw new Exception(ex.Message);
+                throw new Exception("Erro ao buscar planos");
             }
         }
 
         public async Task<Dictionary<int, string>> PeriodPlans()
         {
-            Dictionary<int, string> periodLocation = new Dictionary<int, string>()
+            var periodLocation = new Dictionary<int, string>()
             {
-                {1, "7 dias com custo de R$ 30,00 por dia" },
+                {1, "7 dias com custo de R$30,00 por dia" },
                 {2, "15 dias com um custo de R$28,00 por dia" },
                 {3, "30 dias com um custo de R$22,00 por dia" },
                 {4, "45 dias com um custo de R$20,00 por dia" },

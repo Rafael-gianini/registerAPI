@@ -35,8 +35,11 @@ namespace registerAPI.Query.GetBike.GetBikeLicense
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Get Motorcycle License - Error: {ex.Message}");
+                if (ex is ArgumentException)
+                    throw new ArgumentException(ex.Message);
 
-                throw new Exception(ex.Message);
+                throw new Exception("Erro ao buscar placa");
             }
            
         }

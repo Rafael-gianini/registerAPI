@@ -5,7 +5,7 @@ using System;
 
 namespace registerAPI.Commands.City.DeleteMotorcycle
 {
-    public class DeleteMotorcycleCommandHandler : IRequestHandler<DeleteMotorcycleCommand>
+    public class DeleteMotorcycleCommandHandler : IRequestHandler<DeleteMotorcycleCommand, string>
     {
         private readonly IMotorcycleService _cityService;
         private readonly IRentedService _rentedService;
@@ -18,7 +18,7 @@ namespace registerAPI.Commands.City.DeleteMotorcycle
 
         }
 
-        public async Task<Unit> Handle(DeleteMotorcycleCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(DeleteMotorcycleCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -37,9 +37,13 @@ namespace registerAPI.Commands.City.DeleteMotorcycle
             catch (Exception ex)
             {
                 _logger.LogError($"Delete Motorcycle - Error {ex.Message}");
+
+                if (ex is ArgumentException)
+                    throw new ArgumentException("Erro ao deletar!");
+
                 throw new Exception(ex.Message);
             }
-            return Unit.Value;
+            return "Deletado com sucesso!";
         }
     }
 }

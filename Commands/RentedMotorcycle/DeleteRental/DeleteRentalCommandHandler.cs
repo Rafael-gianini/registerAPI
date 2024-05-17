@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using registerAPI.Commands.RentedMotorcycle.DeleteRental;
 using registerAPI.Services;
 using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Commands.RentedMotorcycle.DeleteLease
 {
-    public class DeleteRentalCommandHandler : IRequestHandler<DeleteLeaseCommand>
+    public class DeleteRentalCommandHandler : IRequestHandler<DeleteRentalCommand, string>
     {
         private readonly IRentedService _rentedService;
         private readonly ILogger<DeleteRentalCommandHandler> _logger;
@@ -15,7 +16,7 @@ namespace registerAPI.Commands.RentedMotorcycle.DeleteLease
 
         }
 
-        public async Task<Unit> Handle(DeleteLeaseCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(DeleteRentalCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -25,12 +26,12 @@ namespace registerAPI.Commands.RentedMotorcycle.DeleteLease
 
                 _logger.LogInformation("Ended Delete Lease");
 
-                return Unit.Value;
+                return "Deletado com sucesso!";
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Delete Lease - Error {ex.Message}");
-                throw new Exception(ex.Message);
+                throw new Exception("Erro ao deletar");
             }
         }
     }

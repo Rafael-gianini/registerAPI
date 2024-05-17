@@ -5,7 +5,7 @@ using registerAPI.Services.Interfaces;
 
 namespace registerAPI.Commands.BikeRegister.UpdateMotorcycle
 {
-    public class UpdateMotorcycleCommandHandler : IRequestHandler<UpdateMotorcycleCommand>
+    public class UpdateMotorcycleCommandHandler : IRequestHandler<UpdateMotorcycleCommand, string>
     {
         private readonly IMotorcycleService _motorcycleService;
         private readonly ILogger<UpdateMotorcycleCommandHandler> _logger;
@@ -17,7 +17,7 @@ namespace registerAPI.Commands.BikeRegister.UpdateMotorcycle
           
         }
 
-        public async Task<Unit> Handle(UpdateMotorcycleCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(UpdateMotorcycleCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -25,20 +25,25 @@ namespace registerAPI.Commands.BikeRegister.UpdateMotorcycle
 
                 var updateMoto = await _motorcycleService.GetByLicense(request.Moto.WrongBikeLicensePlate);
               
-                if (updateMoto is null)
+                if (updateMoto is not null)
                 {
                     updateMoto.BikeLicensePlate = request.Moto.UpdategBikeLicensePlate;
                     await _motorcycleService.UpdateAsync(request.Moto.WrongBikeLicensePlate, updateMoto);
+
+                    _logger.LogInformation($"Ended Update Motorcycle");
                 }
                 else
-                    throw new ArgumentException("Motocicleta já cadastrada");
+                    throw new ArgumentException("Motocicleta não encontrada! Verifique se digitou a placa corretamente.");
 
-                return Unit.Value;
+                return "Atualizado com sucesso!";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                if (ex is ArgumentException)
 
-                throw;
+                    throw new ArgumentException(ex.Message);
+
+                throw new Exception("Erro ao atualizar");
             }
             
         }

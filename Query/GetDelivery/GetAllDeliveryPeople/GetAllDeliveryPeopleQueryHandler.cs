@@ -31,7 +31,7 @@ namespace registerAPI.Query.GetDelivery.GetAllDeliveryPeople
             catch (Exception ex)
             {
                 _logger.LogError($"Get All Delivery People - Error {ex.Message}");
-                throw new Exception(ex.Message);
+                throw new Exception("Erro ao buscar cadastro");
             }
 
         }

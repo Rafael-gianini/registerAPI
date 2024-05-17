@@ -6,7 +6,7 @@ namespace registerAPI.Entity
     {
 
         [BsonElement("id")]
-        public Guid Id  { get; set; }
+        public Guid Id  { get; set; } = Guid.NewGuid();
         [BsonElement("bikeLicensePlate")]
         public string? BikeLicensePlate { get; set; }
         [BsonElement("yearBike")]

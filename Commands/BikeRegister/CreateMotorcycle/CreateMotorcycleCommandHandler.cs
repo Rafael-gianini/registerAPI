@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
 {
-    public class CreateMotorcycleCommandHandler : IRequestHandler<CreateMotorcycleCommand>
+    public class CreateMotorcycleCommandHandler : IRequestHandler<CreateMotorcycleCommand, string>
     {
         private readonly IMotorcycleService _bikeService;
         private readonly ILogger<CreateMotorcycleCommandHandler> _logger;
@@ -21,13 +21,12 @@ namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
             _logger = logger;
         }
 
-        public async Task<Unit> Handle(CreateMotorcycleCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CreateMotorcycleCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 _logger.LogInformation("Start Create Motorcycle");
 
-                request.Bike.Id = Guid.NewGuid();
                 var bikeLicense = !string.IsNullOrEmpty(request.Bike.BikeLicensePlate) ? request.Bike.BikeLicensePlate?.ToUpper() : "";
                 request.Bike.BikeLicensePlate = bikeLicense;
 
@@ -43,14 +42,17 @@ namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
                 if (request.Bike.YearBike.Equals(2024))
                     await MotorcycleRegisterEvent(bikeLicense, request.Bike.YearBike);
 
-                return Unit.Value;
+                return "Criado com sucesso!";
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Create Motorcycle - Error: {ex.Message}");
+
+                if (ex is ArgumentException)
+                    throw new ArgumentException(ex.Message);
+
                 throw new ArgumentException("Erro ao cadastrar");
             }
-
         }
 
         public Task<Unit> MotorcycleRegisterEvent(string? bikeLicense, int yearBike)

@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace registerAPI.Commands.RentedMotorcycle.DeleteLease
+namespace registerAPI.Commands.RentedMotorcycle.DeleteRental
 {
-    public class DeleteLeaseCommand : IRequest
+    public class DeleteRentalCommand : IRequest<string>
     {
         public string? BikeLicense { get; set; }
     }

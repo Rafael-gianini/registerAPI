@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: registerAPI
+  name: register-api
 spec:
   selector:
     matchLabels:
-      app: registerAPI
+      app: register-api
       tier: persistence
       version: v1
   replicas: 1
   template:
     metadata:
       labels:
-        app: registerAPI
+        app: register-api
         tier: persistence
         version: v1
     spec:
       containers:
-        - name: resgisterAPI
-          image: acrdevopsbr.azurecr.io/redis:alpine
+        - name: resgister-api
+          image: resgister-api
           resources:
             requests:
               cpu: 25m

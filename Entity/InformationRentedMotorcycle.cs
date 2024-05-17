@@ -22,5 +22,7 @@ namespace registerAPI.Entity
         public DateOnly EstimatedDevolutionDate { get; set; }
         [BsonElement("dateDevolution")]
         public DateOnly? DateDevolution { get; set; }
+        [BsonElement("valueTrafficTicket")]
+        public double ValueTrafficTicket { get; set; }
     }
 }

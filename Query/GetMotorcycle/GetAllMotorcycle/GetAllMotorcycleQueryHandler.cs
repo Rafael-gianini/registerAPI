@@ -32,8 +32,8 @@ namespace registerAPI.Query.GetBike.GetAllBikes
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+                _logger.LogError($"Get All Motorcycles - Error: {ex.Message}");
+                throw new Exception("Erro ao buscar motos cadastradas");
             }
             throw new NotImplementedException();
         }

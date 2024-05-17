@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using registerAPI;
 using registerAPI.Entity;
+using registerAPI.Profiles;
 using registerAPI.Services;
 using registerAPI.Services.Interfaces;
 using registerAPI.Services.Token;
@@ -27,6 +28,7 @@ builder.Services.AddSingleton<IInformationRentedMotorcycleService, InformationRe
 
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(typeof(CreateDeliveryPersonProfile));
 
 var key = Encoding.ASCII.GetBytes(AppSettings.Secret);
 builder.Services.AddAuthentication(x =>

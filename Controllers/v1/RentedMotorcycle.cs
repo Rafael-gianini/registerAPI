@@ -1,9 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using registerAPI.Commands.Person.CreateOrUpdatePerson;
-using registerAPI.Commands.RentedMotorcycle.CreateLocation;
-using registerAPI.Commands.RentedMotorcycle.DeleteLease;
-using registerAPI.Commands.RentedMotorcycle.UpdateLease;
+using registerAPI.Commands.RentedMotorcycle.CreateRental;
+using registerAPI.Commands.RentedMotorcycle.DeleteRental;
+using registerAPI.Commands.RentedMotorcycle.UpdateRental;
 using registerAPI.Query.GetDelivery.GetAllDeliveryPeople;
 using registerAPI.Query.GetForRent;
 using System.Net;
@@ -36,7 +35,7 @@ namespace registerAPI.Controllers.v1
             Ok(await _mediator.Send(command));
 
         [HttpDelete()]
-        public async Task<IActionResult> Delete([FromQuery] DeleteLeaseCommand query) =>
+        public async Task<IActionResult> Delete([FromQuery] DeleteRentalCommand query) =>
             Ok(await _mediator.Send(query));
 
         [HttpPost()]

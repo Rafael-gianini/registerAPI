@@ -3,7 +3,7 @@
 namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
 {
     using registerAPI.Entity;
-    public class CreateMotorcycleCommand : IRequest
+    public class CreateMotorcycleCommand : IRequest<string>
     {
 
         public CreateMotorcycleCommand(MotorcycleRegister bike) => Bike = bike;

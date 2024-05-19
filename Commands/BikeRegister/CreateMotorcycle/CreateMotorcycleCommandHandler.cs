@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Channels;
 using Newtonsoft.Json;
+using RabbitMQ.Client.Events;
 
 namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
 {
@@ -35,12 +36,15 @@ namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
                 if (existsBike is not null)
                     throw new ArgumentException("Motocicleta já cadastrada");
 
-                await _bikeService.CreateAsync(request.Bike);
-
                 _logger.LogInformation("Ended Create Motorcycle");
 
                 if (request.Bike.YearBike.Equals(2024))
-                    await MotorcycleRegisterEvent(bikeLicense, request.Bike.YearBike);
+                {
+                    await MotorcycleRegisterEventPublish(bikeLicense, request.Bike.YearBike);
+                    var message = await MotorcycleRegisterEventConsumer();
+
+                   if (!string.IsNullOrEmpty(message)) await _bikeService.CreateAsync(request.Bike);
+                }
 
                 return "Criado com sucesso!";
             }
@@ -55,7 +59,7 @@ namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
             }
         }
 
-        public Task<Unit> MotorcycleRegisterEvent(string? bikeLicense, int yearBike)
+        public Task<Unit> MotorcycleRegisterEventPublish(string? bikeLicense, int yearBike)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
@@ -83,6 +87,39 @@ namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
             }
                       
             return Unit.Task;
+        }
+
+        public Task<string> MotorcycleRegisterEventConsumer()
+        {
+            var message = "";
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.ConfirmSelect();
+                channel.QueueDeclare(queue: "register",
+                                     durable: false,
+                                     exclusive: false,
+                                     autoDelete: false,
+                                     arguments: null);
+
+                var consumer = new EventingBasicConsumer(channel);
+
+                consumer.Received += (model, ea) =>
+                {
+                    var body = ea.Body.ToArray();
+                    var message = Encoding.UTF8.GetString(body);
+
+                };
+                channel.BasicConsume(queue: "register",
+                                     autoAck: true,
+                                     consumer: consumer);
+
+                _logger.LogTrace($"Mensagem consumida da fila: {message}");
+            }
+
+            return Task.FromResult(message);
         }
     }
 }

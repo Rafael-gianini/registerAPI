@@ -49,7 +49,7 @@ namespace registerAPI.Commands.Person.CreateDeliveryPerson
 
                 var dateFormated = await VerifyDate(request.DateOfBirth);
                 mapperForm.DateOfBirth = dateFormated;
-                mapperForm.PhotoName = $"{request.CnhPhoto.FileName}-{request.CNH}";
+                mapperForm.PhotoName = $"{request.CNH}-{request.CnhPhoto.FileName}";
                
                 await _deliveryPersonService.CreateAsync(mapperForm);
 
@@ -71,7 +71,7 @@ namespace registerAPI.Commands.Person.CreateDeliveryPerson
         public async Task<Unit> SavePhoto(string fileName, int cnh, IFormFile photo)
         {
             
-            var filePath = Path.Combine("Storage", $"{fileName}-{cnh}");
+            var filePath = Path.Combine("Storage", $"{cnh}-{fileName}");
             using Stream fileStream = new FileStream(filePath, FileMode.Create);
             photo.CopyTo(fileStream);
 

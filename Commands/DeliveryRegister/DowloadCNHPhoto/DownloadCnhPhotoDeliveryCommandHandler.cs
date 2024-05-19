@@ -2,8 +2,8 @@
 using registerAPI.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
-using static System.Net.Mime.MediaTypeNames;
-
+using System.Drawing;
+using System.Drawing.Imaging;
 namespace registerAPI.Commands.DeliveryRegister.DowloadCNHPhoto
 {
     public class DownloadCnhPhotoDeliveryCommandHandler : IRequestHandler<DownloadCnhPhotoDeliveryCommand, FileContentResult>
@@ -21,25 +21,23 @@ namespace registerAPI.Commands.DeliveryRegister.DowloadCNHPhoto
             try
             {
                 _logger.LogInformation("Start Download CNH Photo");
-
-                
+               
                 var allDeliverys = await _deliveryPersonService.GetAllAsync();
 
                 var photoDelivery = allDeliverys.Where(x => x.CNH == request.CNH).FirstOrDefault().PhotoName ?? "";
 
-                if (string.IsNullOrEmpty(photoDelivery))
-                    throw new ArgumentException("Entregador não possui foto cadastrada");
+                if (string.IsNullOrEmpty(photoDelivery)) throw new ArgumentException("Entregador não possui foto cadastrada");
 
                 var localStorage = "Storage/" + photoDelivery;
                 var dataBytes = File.ReadAllBytes(localStorage);
                 var stream = new MemoryStream(dataBytes);
 
                 _logger.LogInformation("Ended Download CNH Photo");
-
+               
                 if (localStorage.Contains("jpg"))
                     return new FileContentResult(dataBytes, "image/jpg");
                 else
-                return new FileContentResult(dataBytes, "image/png");
+                    return new FileContentResult(dataBytes, "image/png");
                                               
             }
             catch (Exception ex)

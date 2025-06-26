@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using registerAPI.Entity;
 using registerAPI.Services;
 
-namespace registerAPI.Commands.Person
+namespace registerAPI.Commands.Person.CreateOrUpdatePerson
 {
     public class CreateOrUpdatePersonCommandHandler : IRequestHandler<CreateOrUpdatePersonCommand>
     {
@@ -16,10 +16,8 @@ namespace registerAPI.Commands.Person
 
         public async Task<Unit> Handle(CreateOrUpdatePersonCommand request, CancellationToken cancellationToken)
         {
-
             try
             {
-                
                 request.People.Id = Guid.NewGuid();
 
                 await _peopleService.CreateAsync(request.People);
@@ -31,6 +29,6 @@ namespace registerAPI.Commands.Person
 
                 throw new Exception(ex.Message);
             }
-        }        
+        }
     }
 }

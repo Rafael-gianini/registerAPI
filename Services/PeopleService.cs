@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using registerAPI.Entity;
 
@@ -17,8 +18,11 @@ namespace registerAPI.Services
             _peopleCollection = mongoDatabase.GetCollection<People>(peopleService.Value.PeopleCollectionName);
         }
 
-        public async Task<List<People>> GetAsync() => 
-            await _peopleCollection.Find(x => true).ToListAsync();
+        public async Task<List<People>> GetAsyncByPage(int page, int pageSize) => 
+            await _peopleCollection.Find(new BsonDocument()).Skip((page - 1) * pageSize).Limit(pageSize).ToListAsync();
+
+        public async Task<List<People>> GetAllAsync() =>
+            await _peopleCollection.Find(new BsonDocument()).ToListAsync();
 
         public async Task<People> GetById(Guid id) =>
             await _peopleCollection.Find(x => x.Id == id).FirstOrDefaultAsync();

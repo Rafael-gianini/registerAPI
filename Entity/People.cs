@@ -12,5 +12,7 @@ namespace registerAPI.Entity
         public string? FullName { get; set; } 
         [BsonElement("cityId")]
         public int CityId { get; set; }
+        [BsonElement("countPeople")] 
+        public int CountPeople { get; set;}
     }
 }

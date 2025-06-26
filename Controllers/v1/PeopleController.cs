@@ -1,6 +1,7 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using registerAPI.Commands.Person;
+using registerAPI.Commands.Person.CreateOrUpdatePerson;
 using registerAPI.Entity;
 using registerAPI.Query.GetPerson;
 using registerAPI.Services;
@@ -9,6 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace registerAPI.Controllers.v1
 {
+    [Authorize]
     [ApiController]
     [Route("api/v1/people")]
     public class PeopleController : ControllerBase

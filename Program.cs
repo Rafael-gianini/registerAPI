@@ -14,7 +14,9 @@ builder.Services.Configure<ConnectionMongo>
     (builder.Configuration.GetSection("connectionSettings"));
 
 
+
 builder.Services.AddScoped<PeopleService>();
+builder.Services.AddScoped<CityService>();
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 

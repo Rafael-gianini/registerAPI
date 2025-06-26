@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: register-api
+spec:
+  selector:
+    matchLabels:
+      app: register-api
+      tier: persistence
+      version: v1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: register-api
+        tier: persistence
+        version: v1
+    spec:
+      containers:
+        - name: resgister-api
+          image: resgister-api
+          resources:
+            requests:
+              cpu: 25m
+              memory: 150Mi
+            limits:
+              cpu: 300m
+              memory: 500Mi
+          ports:
+            - containerPort: 80

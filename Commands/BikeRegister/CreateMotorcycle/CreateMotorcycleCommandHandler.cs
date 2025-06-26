@@ -83,7 +83,7 @@ namespace registerAPI.Commands.City.CreateOrUpdateMotocycle
                                      basicProperties: null,
                                      body: body);
 
-                _logger.LogTrace("Mensagem enviada para o RabbitMQ.");
+                _logger.LogTrace($"Mensagem enviada para o RabbitMQ: {message}");
             }
                       
             return Unit.Task;

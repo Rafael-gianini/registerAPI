@@ -68,17 +68,17 @@ namespace registerAPI.Commands.Person.CreateDeliveryPerson
             }
         }
 
-        public async Task<Unit> SavePhoto(string fileName, int cnh, IFormFile photo)
+        public Task<Unit> SavePhoto(string fileName, int cnh, IFormFile photo)
         {
             
             var filePath = Path.Combine("Storage", $"{cnh}-{fileName}");
             using Stream fileStream = new FileStream(filePath, FileMode.Create);
             photo.CopyTo(fileStream);
 
-            return Unit.Value;
+            return Task.FromResult(Unit.Value);
         }
 
-        public async Task<DateOnly> VerifyDate(string? date)
+        public Task<DateOnly> VerifyDate(string? date)
         {
 
             var array = date.Split('/');
@@ -89,7 +89,7 @@ namespace registerAPI.Commands.Person.CreateDeliveryPerson
 
             var dateFormated = $"{month}-{day}-{year}";
             
-            return DateOnly.Parse(dateFormated);
+            return Task.FromResult( DateOnly.Parse(dateFormated));
 
         }
     }

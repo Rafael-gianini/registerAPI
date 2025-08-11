@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using registerAPI.Commands.City;
 using registerAPI.Query.GetCity;
-
+using registerAPI.Query.GetPerson;
 using System.Net;
 
 namespace registerAPI.Controllers.v1

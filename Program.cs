@@ -26,12 +26,11 @@ builder.Services.AddSingleton<IDeliveryPersonService, DeliveryPersonService>();
 builder.Services.AddSingleton<IRentedService, RentedService>();
 builder.Services.AddSingleton<IInformationRentedMotorcycleService, InformationRentedMotorcycleService>();
 
-<<<<<<< HEAD
+
 
 builder.Services.AddScoped<PeopleService>();
 builder.Services.AddScoped<CityService>();
-=======
->>>>>>> 67066e05a104e75abf879380f5adc7005ddf4310
+
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddAutoMapper(typeof(CreateDeliveryPersonProfile));
